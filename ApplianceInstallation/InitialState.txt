@@ -1,0 +1,5 @@
+Assumed Initial State
+- Windows 2016 has been install using an ISO/DVD with the latest updates slipstreamed through the Dell LifeCycle Controller
+    - Refer to the following instructional video for guidance: https://www.dell.com/learn/us/en/25/videos~en/documents~eservices-installing-windows-2016-uefi-mode-lifecycle-controller.aspx
+
+1. Install OpenManage Server Administrator - 
