@@ -35,12 +35,12 @@ if ((Test-Path -Path $IE_ES_Admin_Key)) {
     } elseif ($ARegistryValue -eq 1) {
         Clear-Host
         Write-Host "`nIE Enhanced Security is Currently Enabled for Admin"
-        Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | fl
+        Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         Read-Host "Press Any Key..." | Out-Null
         Write-Host "`nDisabling Now.. $IE_ES_Admin_Key `n`n##### Shown is the Updated Setting ####" -ForegroundColor DarkYellow -BackgroundColor Black
         [console]::Beep(600,800)
         Set-ItemProperty -Path $IE_ES_Admin_Key -Name "IsInstalled" -Value 0 -Force
-        Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | fl
+        Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         }
     }
 } 
