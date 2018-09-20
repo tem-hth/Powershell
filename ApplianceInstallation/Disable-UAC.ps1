@@ -20,28 +20,29 @@ $version = $osversion.split(".")[0]
 
 
 
-if ($version -eq 10) {
-
-  $RegValue = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" 
-  if($RegValue.ConsentPromptBehaviorAdmin -eq 0 ){
+if ([int]$version -ge 6) {
+  $RegValueConsent = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" 
+  $RegValueEnableLUA = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" 
+  
+  if(($RegValueConsent.ConsentPromptBehaviorAdmin -eq 0) -and ($RegValueEnableLUA.EnableLUA -eq 0) ){
     Write-Host "UAC is Already Disabled" -ForegroundColor Green 
   }else {
     Write-Host "UAC Not Enabled" -ForegroundColor Red 
     Write-Host "Disabling UAC" -ForegroundColor Yellow 
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value "0"
+    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value "0"
+    $RegValueConsentCheckSet = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" 
+    $RegValueEnableLUACheckSet = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA"   
+    if(($RegValueConsentCheckSet.ConsentPromptBehaviorAdmin -eq 0) -and ($RegValueEnableLUACheckSet.EnableLUA -eq 0)) {
+        Write-Host "UAC is Enabled" -ForegroundColor Green
+    } 
+    else {
+        Write-Host "Setting UAC Failed - Check Permissions" - -ForegroundColor Red
+    }
+  
   }
 
-} ElseIf ($Version -eq 6) {
-	$sub = $version.split(".")[1]
-    if ($sub -eq 1 -or $sub -eq 0) {
-		Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value "0"
-    } Else {
-		Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value "0"
-    }
-} ElseIf ($Version -eq 5) {
-	Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value "0"
-} Else {
-	Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value "0"
+} 
+else {
+    Write-Host "Windows Version Not Supported" -ForegroundColor Red
 }
-
-
