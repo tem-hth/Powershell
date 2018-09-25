@@ -31,14 +31,13 @@ if ((Test-Path -Path $IE_ES_Admin_Key)) {
         Write-Host `n$IE_ES_Admin_Key -BackgroundColor Black -ForegroundColor Green
         Write-Host "`nIE Enhanced Security is Already Disabled for Admin"
         write-host `n`nCurrently Registry Value is set to  $ARegistryValue `, No changes have been done. -ForegroundColor Black -BackgroundColor White
-        [console]::Beep(600,800)
+
     } elseif ($ARegistryValue -eq 1) {
         Clear-Host
         Write-Host "`nIE Enhanced Security is Currently Enabled for Admin"
         Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
-        Read-Host "Press Any Key..." | Out-Null
         Write-Host "`nDisabling Now.. $IE_ES_Admin_Key `n`n##### Shown is the Updated Setting ####" -ForegroundColor DarkYellow -BackgroundColor Black
-        [console]::Beep(600,800)
+     
         Set-ItemProperty -Path $IE_ES_Admin_Key -Name "IsInstalled" -Value 0 -Force
         Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         }
@@ -53,12 +52,12 @@ if ((Test-Path -Path $IE_ES_User_Key)) {
         Write-Host `n$IE_ES_User_Key -BackgroundColor Black -ForegroundColor Green
         Write-Host "`nIE Enhanced Security is Already Disabled for User"
         write-host `n`nCurrently Registry Value is set to $URegistryValue `, No changes have been done.`n -ForegroundColor Black -BackgroundColor White
-        [console]::Beep(600,800)
+
     } elseif ($URegistryValue -eq 1) {
         Write-Host "`nIE Enhanced Security is Currently Enabled for User"
         Get-ItemProperty -Path $IE_ES_User_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         Write-Host "`nDisabling Now.. $IE_ES_Admin_Key `n`n##### Shown is the Updated Setting ####" -ForegroundColor Yellow -BackgroundColor Black
-        [console]::Beep(600,800)
+        
         Set-ItemProperty -Path $IE_ES_User_Key -Name "IsInstalled" -Value 0 -Force
         Get-ItemProperty -Path $IE_ES_User_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
     }
