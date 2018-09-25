@@ -2,7 +2,7 @@
   .SYNOPSIS
 
   .DESCRIPTION
-        Team Network Cards
+        Team Network Cards and Generates Random Mac Address for Team
 
 	.NOTES
       Created on: 	9/18/2018
@@ -30,6 +30,10 @@ $Team2Config = $Member3Name,$Member4Name
 $Team1Mode = "SwitchIndependent"
 $Team2Mode = "SwitchIndependent"
 
+# Generates random mac address for team to prevent conflict with underlying network card.
+$Team1MacAddress = Get-RandomMacAddress
+$Team2MacAddress = Get-RandomMacAddress
+
 $ListofTeams = Get-NetLbfoTeam
 
 #Default is Two Teams 
@@ -47,7 +51,8 @@ else {
         Write-Host "Configuring Teams" -ForegroundColor Yellow
         New-NetLbfoTeam -Name $Team1Name -TeamMembers $Team1Config -TeamingMode $Team1Mode -Confirm:$false
         New-NetLbfoTeam -Name $Team2Name -TeamMembers $Team2Config -TeamingMode $Team2Mode -Confirm:$false 
-
+        Set-NetAdapter -Name $Team1Name -MacAddress $Team1MacAddress
+        Set-NetAdapter -Name $Team2Name -MacAddress $Team2MacAddress
 
         #Check State of Teaming
         if((Get-NetLbfoTeam).TeamNics.Count -eq $NumofTeams) {
@@ -63,4 +68,19 @@ else {
     }
 }
 
+
+2
+3
+4
+5
+6
+7
+8
+	
+function Get-RandomMacAddress{
+ 
+    $MacAddress = (0..5 | ForEach-Object { '{0:x}{1:x}' -f (Get-Random -Minimum 0 -Maximum 15),(Get-Random -Minimum 0 -Maximum 15)})  -join ':'    
+    return $MacAddress
+ 
+}
 
