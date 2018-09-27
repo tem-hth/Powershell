@@ -6,3 +6,4 @@ Assumed Initial State
 2. Install Chrome - Install-Chrome.ps1
 3. Disable User Access Control - Disable-UAC.ps1
 4. Disable Internet Explorer Enhanced Security - Disable-IESec.ps1
+
