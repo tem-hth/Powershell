@@ -1,0 +1,24 @@
+- Windows Assessment and Deployment Kit 10 Must be intalled on Host System 
+https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+
+- Windows 7 and 2008 Users need to ensure Windows Management Framework 5.1 is Installed  and DotNet 4.5<
+https://www.microsoft.com/en-us/download/details.aspx?id=54616
+https://www.microsoft.com/en-us/download/details.aspx?id=56116
+
+1. Download-WSUSOffline.ps1
+ - Downloads Offline Windows Update Utility
+2. Download-WindowsUpdates.ps1
+ - Downloads Windows Updates needed for slipstream
+3. SlipStream-WindowsUpdates.ps1
+ - Slipstreams windows update into Install Package
+ - You may receive a UAC prompt to execute DISM, Click Yes
+ - Turn off UAC or will get prompt for each package that needs to be installed.
+ - The imaage will start to mount.
+4. Modify autounattend.xml using Windows System Image Manager as needed.
+4. Create-WindowsOSISO.ps1
+ - Creates the ISO for Installation
+  
+ 
+
+
+
