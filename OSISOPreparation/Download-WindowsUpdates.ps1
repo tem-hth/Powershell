@@ -26,9 +26,12 @@ $onScreenDelay = 5
 
 $isInstalled = Test-Path "$WSUSOfflineRoot\UpdateGenerator.exe"
 if($isInstalled){
-    Write-Host "WSUS is Installed" -ForegroundColor Green
+    Write-Host "WSUS Offline is Installed" -ForegroundColor Green
     Write-Host "Downloading Windows Updates - Please Wait" -ForegroundColor Yellow
-    Start-Process "$WSUSOfflineRoot\cmd\DownloadUpdates.cmd" -Args "w100-x64 glb /verify" -Wait -PassThru
+    $downloadProcess = Start-Process "$WSUSOfflineRoot\cmd\DownloadUpdates.cmd" -Args "w100-x64 glb /verify" -Wait -PassThru -NoNewWindow
+    Write-Host "Download of Updates Complete" -ForegroundColor Green
 
+}else {
+    Write-Host "WSUS Offline is Not Installed - Please Install WSUS Offline" -ForegroundColor Red
 
 }
