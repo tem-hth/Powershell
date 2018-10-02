@@ -14,10 +14,30 @@
 #>
 
 
-$ShareDirectory = "D:\Share"
-$ShareName = "Share"
-$FullAccessUsers = "messervice, mesuser, mesadmin"
-$ReadAccessUser = ""
+# Import config file
+[xml]$ConfigFile = Get-Content ".\MES-Config.xml"
+
+
+
+
+if ($ConfigFile.Settings.RDPMembersSettings.RDPMembers) 
+{
+      # Set Share Settings from config file
+      $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath
+      $ShareName = $ConfigFile.Settings.ShareApplianceSettings.ShareLocalName
+      $FullAccessUsers = $ConfigFile.Settings.ShareApplianceSettings.ShareFullAccessUsers
+      $ReadAccessUser = $ConfigFile.Settings.ShareApplianceSettings.ShareReadAccessUsers
+
+}else {
+      # Set Share Settings to Default settings from config file
+      $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath
+      $ShareName = $ConfigFile.Settings.ShareApplianceSettings.ShareLocalName
+      $FullAccessUsers = $ConfigFile.Settings.ShareApplianceSettings.ShareFullAccessUsers
+      $ReadAccessUser = $ConfigFile.Settings.ShareApplianceSettings.ShareReadAccessUsers
+
+}
+
+
 
 
 if(Test-Path $ShareDirectory){
