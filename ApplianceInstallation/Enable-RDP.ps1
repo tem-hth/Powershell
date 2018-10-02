@@ -13,9 +13,23 @@
       Requires:      
 #>
 
-#Separate RDP users with comma for example "mesadmin","user2"
-$RDPMembers = "mesadmin"
 
+
+	
+# Import config file
+[xml]$ConfigFile = Get-Content ".\MES-Config.xml"
+
+
+
+
+if ($ConfigFile.Settings.RDPMembersSettings.RDPMembers) 
+{
+      # Set RDP Members from config file
+      $RDPMembers = $ConfigFile.Settings.RDPMembersSettings.RDPMembers
+}else {
+      # Set RDP Members to Default settings from config file
+      $RDPMembers =  $ConfigFile.Settings.RDPMembersSettings.DefaultRDPMembers
+}
 
 
 New-ItemProperty -Path 'HKLM:SystemCurrentControlSetControlTerminal Server' -Name 'fDenyTSConnections' -Value 0 -PropertyType dword -Force
