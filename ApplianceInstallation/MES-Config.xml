@@ -1,0 +1,43 @@
+<?xml version="1.0">
+<Settings>
+    <UserAccounts>
+        <DefaultAdmin>mesadmin</DefaultAdmin>
+        <DefaultUser>mesuser</DefaultUser>
+        <DefaultService>messervice</DefaultService>
+        <AccountAdmin></AccountAdmin>
+        <AccountUser></AccountUser> 
+        <AccountService></AccountService>    
+    </UserAccounts>
+    <ComputerNames>
+        <DefaultDiscoveryManagerBaseName>MESDM</DefaultDiscoveryManagerBaseName>
+        <DefaultDiscoveryAgentBaseName>MESDA</DefaultDiscoveryAgentBaseName>
+        <DefaultWebBaseName>MESWEB</DefaultWebBaseName>
+        <DefaultSQLBaseName>MESSQL</DefaultSQLBaseName>
+        <DefaultApplianceName>MESAPP001</DefaultApplianceName>
+        <DiscoveryManagerBaseName></DiscoveryManagerBaseName>
+        <DiscoveryAgentBaseName></DiscoveryAgentBaseName>
+        <WebBaseName></WebBaseName>
+        <SQLBaseName></SQLBaseName>
+        <ApplianceName></ApplianceName>   
+    </ComputerNames>
+    <RDPMembersSettings>
+        <DefaultRDPMembers>mesadmin</DefaultRDPMembers>
+        <RDPMembers></RDPMembers>
+    </RDPMembersSettings>
+    <ShareVMSettings>
+        <DefaultSharePath>\\MESAPP001\Share</DefaultSharePath>
+        <DefaultSharePathLetter>Z</DefaultSharePathLetter>
+        <SharePath></SharePath>
+        <SharePathLetter></SharePathLetter>
+    </ShareVMSettings>
+    <ShareApplianceSettings>
+        <DefaultShareLocalPath>D:\Share</DefaultShareLocalPath>
+        <DefaultShareLocalName>Share</DefaultShareLocalName>
+        <DefaultShareFullAccessUsers>"messervice, mesuser, mesadmin"</DefaultShareFullAccessUsers>
+        <DefaultShareReadAccessUser></DefaultShareReadAccessUser>
+        <ShareLocalPath></ShareLocalPath>
+        <ShareLocalName></ShareLocalName>
+        <ShareFullAccessUsers></ShareFullAccessUsers>
+        <ShareReadAccessUser></ShareReadAccessUser>    
+    </ShareApplianceSettings>
+</Settings>
