@@ -45,7 +45,7 @@ else {
 
     
         if (Test-Path "$WSUSOfflineRoot\UpdateGenerator.exe") {
-            Write-Host "$SoftwareName Version: $SoftwareVersion is Installed" -ForegroundColor Green
+            Write-Host "$SoftwareName Version: $SoftwareVersion is Unzipped Successfully" -ForegroundColor Green
         }
         else{
             Write-Host "$SoftwareName Version: $SoftwareVersion Installation Failed - Check Logs" -ForegroundColor Red
@@ -61,7 +61,7 @@ else {
       
 
             if (Test-Path "$WSUSOfflineRoot\UpdateGenerator.exe") {
-                Write-Host "$SoftwareName Version: $SoftwareVersion is Installed" -ForegroundColor Green
+                Write-Host "$SoftwareName Version: $SoftwareVersion is Unzipped Successfully" -ForegroundColor Green
             }
             else{
                 Write-Host "$SoftwareName Version: $SoftwareVersion Installation Failed - Check Logs" -ForegroundColor Red
