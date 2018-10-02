@@ -1,0 +1,1 @@
+﻿New-PSDrive -Name "Z" -Root "\\MESAPP001\Share" -Persist -PSProvider "FileSystem"

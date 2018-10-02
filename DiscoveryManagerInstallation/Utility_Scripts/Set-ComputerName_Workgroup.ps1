@@ -1,0 +1,1 @@
+Add-Computer -ComputerName "POC03DM001"  -WorkGroupName "POC03WORKGROUP"

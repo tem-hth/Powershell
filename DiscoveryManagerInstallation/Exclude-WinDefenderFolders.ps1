@@ -1,0 +1,6 @@
+﻿Add-MpPreference -ExclusionPath "C:\ProgramData\Mindseye\TunnelVision\Temp"
+Add-MpPreference -ExclusionPath "C:\ProgramData\Mindseye\TunnelVision\Temp\IMAGES"
+Add-MpPreference -ExclusionPath "C:\ProgramData\Mindseye\TunnelVision\Temp\NATIVES"
+Add-MpPreference -ExclusionPath "C:\ProgramData\Mindseye\TunnelVision\Temp\PROCESSING"
+Add-MpPreference -ExclusionPath "$env:LOCALAPPDATA\Temporary Internet Files\Content.Outlook"
+Add-MpPreference -ExclusionPath "$env:LOCALAPPDATA\Temp\notes*"
