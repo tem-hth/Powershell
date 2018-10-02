@@ -1,3 +1,4 @@
+Invoke-Expression ".\Copy-DeployToCDrive.ps1"
 Invoke-Expression ".\Install-DellFirmwareUpdates.ps1"
 Invoke-Expression ".\Disable-IESec.ps1"
 Invoke-Expression ".\Disable-UAC.ps1"
