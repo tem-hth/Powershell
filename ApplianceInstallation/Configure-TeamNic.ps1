@@ -56,8 +56,8 @@ else {
         Write-Host "Configuring Teams" -ForegroundColor Yellow
         New-NetLbfoTeam -Name $Team1Name -TeamMembers $Team1Config -TeamingMode $Team1Mode -Confirm:$false
         New-NetLbfoTeam -Name $Team2Name -TeamMembers $Team2Config -TeamingMode $Team2Mode -Confirm:$false 
-        Set-NetAdapter -Name $Team1Name -MacAddress $Team1MacAddress
-        Set-NetAdapter -Name $Team2Name -MacAddress $Team2MacAddress
+        Set-NetAdapter -Name $Team1Name -MacAddress $Team1MacAddress -Confirm:$false 
+        Set-NetAdapter -Name $Team2Name -MacAddress $Team2MacAddress -Confirm:$false 
 
         #Check State of Teaming
         if((Get-NetLbfoTeam).TeamNics.Count -eq $NumofTeams) {
