@@ -43,4 +43,24 @@
         <ShareFullAccessUsers></ShareFullAccessUsers>
         <ShareReadAccessUser></ShareReadAccessUser>    
     </ShareApplianceSettings>
+    <NetworkTeamSettings>
+        <Team1Name>Team1</Team1Name>
+        <Team2Name>Team2</Team2Name>
+        <Member1Name>Ethernet</Member1Name>
+        <Member2Name>Ethernet 2</Member2Name>
+        <Member3Name>Ethernet 3</Member3Name>
+        <Member4Name>Ethernet 4</Member4Name>
+        <Team1Config>Ethernet, Ethernet 2</Team1Config>
+        <Team2Config>Ethernet 3, Ethernet 4</Team2Config>
+        <Team1Mode>SwitchIndependent</Team1Mode>
+        <Team2Mode>SwitchIndependent</Team1Mode>
+    </NetworkTeamSettings>
+    <HyperVSwitch>
+        <NetAdapter>Team1</NetAdapter>
+        <VMSwitchName>MESVirtualSwitch</VMSwitchName>
+    </HyperVSwitch>
+    <CopyDeploy>
+        <DestFolder>C:\Deploy</DestFolder>
+        <SourceFolder>D:\Deploy</SourceFolder>
+    </CopyDeploy>
 </Settings>
