@@ -20,7 +20,7 @@
 
 
 
-if ($ConfigFile.Settings.RDPMembersSettings.RDPMembers) 
+if ($ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath) 
 {
       # Set Share Settings from config file
       $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath
