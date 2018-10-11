@@ -29,6 +29,7 @@ function Add-AdminUser {
             Add-LocalGroupMember -Group "Administrators" -Member $Account
             if((Get-LocalUser -Name $Account).Count -eq 1) {
                 Write-Host "$Account has been created." -ForegroundColor Green
+                return $AccountPW
             }else {
                 Write-Host "Unable to create Admin Account" -ForegroundColor Red
             }
