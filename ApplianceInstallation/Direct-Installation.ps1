@@ -26,24 +26,28 @@ Write-Host "Script to configure Mindseyes Solutions Appliance" -ForegroundColor 
 
 
 $adminUser = Read-Host "Please provide a username to be admin - Default is mesadmin: "
+$adminPW = ""
 if($adminUser) {
-    Add-AdminUser $adminUser
+    $adminPW = Add-AdminUser $adminUser
+
 }else {
-    Add-AdminUser $ConfigFile.UserAccounts.DefaultAdmin
+    $adminPW = Add-AdminUser $ConfigFile.UserAccounts.DefaultAdmin
 }
 
 $serviceUser = Read-Host "Please provide a username to be service - Default is messervice: "
+$servicePW = ""
 if($serviceUser) {
-    Add-AdminUser $serviceUser
+   $servicePW = Add-AdminUser $serviceUser
 }else {
-    Add-AdminUser $ConfigFile.UserAccounts.DefaultService
+    $servicePW = Add-AdminUser $ConfigFile.UserAccounts.DefaultService
 }
 
 $standardUser = Read-Host "Please provide a username for standard user - Default is mesuser: "
+$standardPW = ""
 if($standardUser) {
-    Add-StandardUser $standardUser
+    $standardPW = Add-StandardUser $standardUser
 }else {
-    Add-StandardUser $ConfigFile.UserAccounts.DefaultUser
+    $standardPW = Add-StandardUser $ConfigFile.UserAccounts.DefaultUser
 }
 
 
@@ -54,3 +58,7 @@ Invoke-Expression ".\Enable-RDP.ps1"
 Invoke-Expression ".\Instal-OMSA.ps1"
 Invoke-Expression ".\Install-Chrome.ps1"
 Invoke-Expression ".\Install-HyperV.ps1"
+
+Write-Host "Initial Phase of Installation Complete" -ForegroundColor Green
+Write-Host "Please Configure Team Nic and Hyper-V Switch using Script" -ForegroundColor Green
+Write-Host "After using Hyper-V Switch Script Use VM Build Scripts" -ForegroundColor Green
