@@ -16,7 +16,7 @@
 #Select Team or Ethernet Adapter to use
 $NetAdapater = "Team1"
 #Select Hyper V Virtual Switch Name
-$VMSwitchName = "VirtualSwitch"
+$VMSwitchName = "MESVirtualSwitch"
 
 if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
     Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
