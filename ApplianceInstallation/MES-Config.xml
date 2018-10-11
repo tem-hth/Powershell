@@ -6,7 +6,10 @@
         <DefaultService>messervice</DefaultService>
         <AccountAdmin></AccountAdmin>
         <AccountUser></AccountUser> 
-        <AccountService></AccountService>    
+        <AccountService></AccountService> 
+        <AdminPW></AdminPW>
+        <UserPW></UserPW>
+        <ServicePW></ServicePW>   
     </UserAccounts>
     <ComputerNames>
         <DefaultDiscoveryManagerBaseName>MESDM</DefaultDiscoveryManagerBaseName>
