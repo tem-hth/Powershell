@@ -27,14 +27,14 @@ if ([int]$version -ge 6) {
   if(($RegValueConsent.ConsentPromptBehaviorAdmin -eq 0) -and ($RegValueEnableLUA.EnableLUA -eq 0) ){
     Write-Host "UAC is Already Disabled" -ForegroundColor Green 
   }else {
-    Write-Host "UAC Not Enabled" -ForegroundColor Red 
+    Write-Host "UAC is Enabled" -ForegroundColor Red 
     Write-Host "Disabling UAC" -ForegroundColor Yellow 
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value "0"
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value "0"
     $RegValueConsentCheckSet = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" 
     $RegValueEnableLUACheckSet = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA"   
     if(($RegValueConsentCheckSet.ConsentPromptBehaviorAdmin -eq 0) -and ($RegValueEnableLUACheckSet.EnableLUA -eq 0)) {
-        Write-Host "UAC is Enabled" -ForegroundColor Green
+        Write-Host "UAC is Disabled" -ForegroundColor Green
     } 
     else {
         Write-Host "Setting UAC Failed - Check Permissions" - -ForegroundColor Red
@@ -49,8 +49,8 @@ else {
 # SIG # Begin signature block
 # MIIOCgYJKoZIhvcNAQcCoIIN+zCCDfcCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3Lhno00vRmqxAJ4LxgETNQoq
-# IAqgggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrrIJGNu6jfwZ/iIb36NsrkCy
+# +oGgggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
 # AQsFADB9MQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 # MRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01PRE8gQ0EgTGltaXRlZDEj
 # MCEGA1UEAxMaQ09NT0RPIFJTQSBDb2RlIFNpZ25pbmcgQ0EwHhcNMTgxMDAyMDAw
@@ -115,11 +115,11 @@ else {
 # TU9ETyBDQSBMaW1pdGVkMSMwIQYDVQQDExpDT01PRE8gUlNBIENvZGUgU2lnbmlu
 # ZyBDQQIQHvPrkrypow2D/voZH0ZhxTAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIB
 # DDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEE
-# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUQUjFlxpaDdk/
-# gQV/EyBNN1S7axcwDQYJKoZIhvcNAQEBBQAEggEAl3f82tGlOS7LmDM1r8s1ec37
-# 3KVqiJ5flFp+Ttfki0SDdybcXlaTk+iTwywwURbEnIGe+YJTJ6VkygxgvcgNalHC
-# DTgwXuav2544bGC3sd1H/AIDBwFjsmfNHn7YbLpgylhlsz9xXxki80q+UvzBtNFp
-# eTASyXoirlbpUXeVCk7B+1+cspNJ56pJ72+r8Pajrd1H1ay7XfC2/WcPnCEuouXY
-# eGnqOxGhVFO0ZMpiKMYuLxtiyrdFwvb/d4QwM1S/0uiMqBXCcgC3g8NH59On7OVF
-# 5MRtZugpu883WD2sx84NXR0ZIIJJjuKmAZ4mXtu9lbVjN/jrR9eYMB5l5TUzyw==
+# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUSREV1Wvprs7c
+# ArIJ8u0kNV9Z1HgwDQYJKoZIhvcNAQEBBQAEggEAL1R8BACtLKAY6wjGyWuEWyRf
+# lG4oOhaJZfVhH2GZF2S0JA5ERrec8qjmVapBf3ll+KmjRSjYMEwzwp6ZfJ8aRLhO
+# srUq7blf6nqFm2RjAhc14OcZozESsdCWkOvmjONbFoYLaGub82aYH4HcFlxGwaU/
+# Vm4us5rd/WQ3N1ixvrbRzNr2HyWXwtSx74ElqvYTNw9v88PX0Man1/ilEaXJBsks
+# gMbluUvmCORbknzT4UXAgMADQojKsaLkB6dzo6mtv/VsPFtsMRuAs5NrTs7ctiA2
+# OpuQJ6NFW+Trd1S/Zp2IRY1AnL5HfX1lEdYjJRwg2ePQE4YfV/Bk15NSKd8I0w==
 # SIG # End signature block
