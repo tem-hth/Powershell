@@ -23,7 +23,7 @@ $IE_ES_User_Key="HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A50
 #
 # Check Registry Key - System Profile Key Exists
 #
-Clear-Host
+#Clear-Host
 if ((Test-Path -Path $IE_ES_Admin_Key)) {
     $ARegistryValue=(Get-ItemProperty -Path $IE_ES_Admin_Key -Name IsInstalled).IsInstalled
     if ($IE_ES_Admin_Key -ne "") {
@@ -33,13 +33,14 @@ if ((Test-Path -Path $IE_ES_Admin_Key)) {
         write-host `n`nCurrently Registry Value is set to  $ARegistryValue `, No changes have been done. -ForegroundColor Black -BackgroundColor White
 
     } elseif ($ARegistryValue -eq 1) {
-        Clear-Host
-        Write-Host "`nIE Enhanced Security is Currently Enabled for Admin"
+        #Clear-Host
+        Write-Host "`nIE Enhanced Security is Currently Enabled for Admin" -ForegroundColor Red
         Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         Write-Host "`nDisabling Now.. $IE_ES_Admin_Key `n`n##### Shown is the Updated Setting ####" -ForegroundColor DarkYellow -BackgroundColor Black
      
         Set-ItemProperty -Path $IE_ES_Admin_Key -Name "IsInstalled" -Value 0 -Force
         Get-ItemProperty -Path $IE_ES_Admin_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
+        Write-Host "`nIE Enhanced Security is Disabled for Admin" -ForegroundColor Green
         }
     }
 } 
@@ -50,27 +51,31 @@ if ((Test-Path -Path $IE_ES_User_Key)) {
     $URegistryValue=(Get-ItemProperty -Path $IE_ES_User_Key -Name IsInstalled).IsInstalled
     if ($URegistryValue -eq "" -or $URegistryValue -ne 1)  {
         Write-Host `n$IE_ES_User_Key -BackgroundColor Black -ForegroundColor Green
-        Write-Host "`nIE Enhanced Security is Already Disabled for User"
+        Write-Host "`nIE Enhanced Security is Already Disabled for User" -ForegroundColor Green
         write-host `n`nCurrently Registry Value is set to $URegistryValue `, No changes have been done.`n -ForegroundColor Black -BackgroundColor White
 
     } elseif ($URegistryValue -eq 1) {
-        Write-Host "`nIE Enhanced Security is Currently Enabled for User"
+        Write-Host "`nIE Enhanced Security is Currently Enabled for User" -ForegroundColor Red
         Get-ItemProperty -Path $IE_ES_User_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         Write-Host "`nDisabling Now.. $IE_ES_Admin_Key `n`n##### Shown is the Updated Setting ####" -ForegroundColor Yellow -BackgroundColor Black
         
         Set-ItemProperty -Path $IE_ES_User_Key -Name "IsInstalled" -Value 0 -Force
         Get-ItemProperty -Path $IE_ES_User_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
+        Write-Host "`nIE Enhanced Security is Disabled for User" -ForegroundColor Green
     }
     } else {
     Write-Host "`nIE Enahanced Security Registry Keys in (Admin and User) - Is Not Configured"
     Write-host "`n $IE_ES_Admin_Key `n $IE_ES_User_Key " -ForegroundColor Black -BackgroundColor Cyan
     Write-Host "`nReigstry Key Not Found!" -ForegroundColor White -BackgroundColor Red
     }
+}
+
+
 # SIG # Begin signature block
 # MIIOCgYJKoZIhvcNAQcCoIIN+zCCDfcCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUWMMIuzQs4STaIvQZ3r+ZV/3o
-# mymgggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUiS1MZiTR8gax9wCEbwqRFIbz
+# g9OgggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
 # AQsFADB9MQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 # MRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01PRE8gQ0EgTGltaXRlZDEj
 # MCEGA1UEAxMaQ09NT0RPIFJTQSBDb2RlIFNpZ25pbmcgQ0EwHhcNMTgxMDAyMDAw
@@ -135,11 +140,11 @@ if ((Test-Path -Path $IE_ES_User_Key)) {
 # TU9ETyBDQSBMaW1pdGVkMSMwIQYDVQQDExpDT01PRE8gUlNBIENvZGUgU2lnbmlu
 # ZyBDQQIQHvPrkrypow2D/voZH0ZhxTAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIB
 # DDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEE
-# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUwPjP+RBZlPQO
-# 6to9v8rgTWAsdiowDQYJKoZIhvcNAQEBBQAEggEAWQju47ZZng0t/R5xC6RQhEJx
-# kDeQlSg0sQNyYG7Cv/QuG/M6otR8s8wczHSwHFJMr36bIfjQ3tOhyqabP0XO3T0W
-# EoFXIzNTGWXtm16fWqYdUhkDjw4tAE4n+jRsW80hOQH5GbJGNin4GK0s1HdXKtV7
-# POmfI0DdEEG2lS1VUlTX0zhReDh7+gLtegMKXYOkLuvjOt7Tt26IOul9GD39078U
-# H42NjXAhmx/EM27PRQADwzSaX/xwIFgkkWMFmwd6CigtkKeYtsVPwYK129iMT5uj
-# uLmTNhU2UR2q9FcSaCO+JWasESIcoscVGpiu5QQI8pskckSaRWbT5tTi4VoH0w==
+# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUz6ytEtlRpVLs
+# efQTVWzgIyeemMgwDQYJKoZIhvcNAQEBBQAEggEAFRKtCsxdWAAGfuAcZ2ZkFG47
+# YVTgXkKjHMCoCJmuPyLNPZRXwfv4DRMXEHm2RXr/4av3ti7w9yZdLN0p0DtYdRZq
+# G8DzzOhHSVHbyZ6RXM0xe41DROU3qS7LDFsnKLQ/Kkakh+5qoVpSxZqVgCIbHxlD
+# D0CSDxRd/wCXe7f/9qMXcgTH+IAGSZqwZho3M0c/GC+oMTw7b4BzDgQ/OgB+PuDT
+# NriDlmxojSh5sZg+wmk4J0NjyvSY8iF6XLEZbcpNKKkSWJMpYXMuC/QoHLm6qMRz
+# a7EkKQ7CPM2GQn9x/LZzotQf1BeF2RgfmUJhQsW15lLaooqc/TJYmTAKOTcA6g==
 # SIG # End signature block
