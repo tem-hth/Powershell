@@ -35,6 +35,7 @@ if($isInstalled){
      Write-Host "$SoftwareName Version: $SoftwareVersion Already Installed" -ForegroundColor Green
      Write-Host "Updating Dell Firmware - Please Wait" -ForegroundColor Yellow
      $DSUExecution = Start-Process dsu.exe -Args "/q" -Verb RunAs -PassThru -Wait
+     Write-Host "Update of Dell Firmware Complete" -ForegroundColor Green
 }
 else {
     Write-Host "$SoftwareName Version: $SoftwareVersion Not Installed" -ForegroundColor Red
@@ -48,7 +49,7 @@ else {
         if (Test-InstalledSoftware -Name $SoftwareName -Version $SoftwareVersion) {
             Write-Host "Updating Dell Firmware - Please Wait" -ForegroundColor Yellow
             $DSUExecution = Start-Process dsu.exe -Args "/q" -Verb RunAs -PassThru -Wait
-            
+            Write-Host "Update of Dell Firmware Complete" -ForegroundColor Green
         }
         else {
             Write-Host "Installing Software Failed" -ForegroundColor Red
