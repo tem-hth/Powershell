@@ -60,7 +60,7 @@ else {
         try {
             Invoke-WebRequest $SoftwareSourceInstallURI -OutFile $TempPath\$SoftwareInstallerFileName
             Write-Host "Installing $SoftwareName Version: $SoftwareVersion" -ForegroundColor Yellow
-            $InstallExection = Start-Process "$SoftwareInstallerLocalFilePath\$SoftwareInstallerFileName" -Args "/s" -Verb RunAs -Wait -PassThru
+            $InstallExection = Start-Process "$TempPath\$SoftwareInstallerFileName" -Args "/s" -Verb RunAs -Wait -PassThru
 
             if (Test-InstalledSoftware -Name $SoftwareName -Version $SoftwareVersion) {
                 Write-Host "Updating Dell Firmware - Please Wait" -ForegroundColor Yellow
@@ -89,12 +89,12 @@ else {
 }
 
 #On Screen Delay - Status on Screen
-Start-Sleep -Seconds $onScreenDelay
+Start-Sleep -Seconds $onScreenDela
 # SIG # Begin signature block
 # MIIOCgYJKoZIhvcNAQcCoIIN+zCCDfcCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUM3WtxzsvzAu3uSlyFKl8XNsM
-# K5egggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUt+3lB4qrc1QcCLk6SDZwbRYs
+# dIOgggtBMIIFWTCCBEGgAwIBAgIQHvPrkrypow2D/voZH0ZhxTANBgkqhkiG9w0B
 # AQsFADB9MQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 # MRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01PRE8gQ0EgTGltaXRlZDEj
 # MCEGA1UEAxMaQ09NT0RPIFJTQSBDb2RlIFNpZ25pbmcgQ0EwHhcNMTgxMDAyMDAw
@@ -159,11 +159,11 @@ Start-Sleep -Seconds $onScreenDelay
 # TU9ETyBDQSBMaW1pdGVkMSMwIQYDVQQDExpDT01PRE8gUlNBIENvZGUgU2lnbmlu
 # ZyBDQQIQHvPrkrypow2D/voZH0ZhxTAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIB
 # DDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEE
-# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUDKxEAx1IzGDC
-# XCoPfcrXwi77/SowDQYJKoZIhvcNAQEBBQAEggEAIUkGsgCGvfETbQtmXOjocA8L
-# 55YE8E55fL3vPDe6zR87viaKEM6dulDoiNb1gGHieDUQquJzyznqOrxU0taNOzRL
-# kx3fkrY+sfYcn4uVEZUavoFItQ4QjAdWytURZ1l37c1HOBTmCxQ5XjTbscBqEYCu
-# AHOvBbUPhcXNZe49KltAFeOhEEIA4kzYMyQkC2qW1BJb3nLJazuqoIdw+0dFmR2m
-# Pwr4kcov6sGMHP1Bdo0W2hUOmGQ4UGVSmShStiROTSUjsAYqLYDGdFgOAcbJXALT
-# DtSmruYT/Ca/7iAcBnfR54S9VrCnY8fc7RmBnlWY1Q0J6/kQfbpQHr1WU9mbhQ==
+# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0BCQQxFgQUmz8dUlUsnbHx
+# kzTV34zn/QdLPDMwDQYJKoZIhvcNAQEBBQAEggEAEWdH3Vam+8rp3I8xFGu6zvd/
+# lCtUAfVbfAFslFXEdhQ+ZFh12FOhgMhswhWYdFmYIblDZSad5t74t56bZZ81X5dU
+# rBuSPeMoO+b604X67DIoYVEhEgcvmvYsLmOtywpWWm7iievF6kbM81GIv5UoeVUD
+# TCUyankmp2ARpSHLkxqInlDJlHv9x93kYfftUu2MgGgGGBfn1xjWzoP3XTJZc/Ow
+# Eetz3Pyx8cYsgGpOboMqyrlGx8rfHtX+gv+GA+NBwvRPDDmVldLFhk70HJvQkL8o
+# tZ/3DZGTd+qq/dABBv8+M+fiwMU2YXzQIRDizSGsSEmoSqZLNdzAtggyLzzE3Q==
 # SIG # End signature block
