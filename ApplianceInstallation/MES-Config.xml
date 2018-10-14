@@ -1,4 +1,4 @@
-<?xml version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
 <Settings>
     <UserAccounts>
         <DefaultAdmin>mesadmin</DefaultAdmin>
@@ -36,7 +36,7 @@
     <ShareApplianceSettings>
         <DefaultShareLocalPath>D:\Share</DefaultShareLocalPath>
         <DefaultShareLocalName>Share</DefaultShareLocalName>
-        <DefaultShareFullAccessUsers>"messervice, mesuser, mesadmin"</DefaultShareFullAccessUsers>
+        <DefaultShareFullAccessUsers>messervice, mesuser, mesadmin</DefaultShareFullAccessUsers>
         <DefaultShareReadAccessUser></DefaultShareReadAccessUser>
         <ShareLocalPath></ShareLocalPath>
         <ShareLocalName></ShareLocalName>
@@ -53,7 +53,7 @@
         <Team1Config>Ethernet, Ethernet 2</Team1Config>
         <Team2Config>Ethernet 3, Ethernet 4</Team2Config>
         <Team1Mode>SwitchIndependent</Team1Mode>
-        <Team2Mode>SwitchIndependent</Team1Mode>
+        <Team2Mode>SwitchIndependent</Team2Mode>
     </NetworkTeamSettings>
     <HyperVSwitch>
         <NetAdapter>Team1</NetAdapter>
