@@ -7,7 +7,7 @@
     <DefaultPW>76492d1116743f0423413b16050a5345MgB8AHEASwBQAGUAbQB6AHcAQQB1AHcAcABSADQAKwBmAFIATQBkAFUARgBlAHcAPQA9AHwANwBkAGEAZAA0ADgAOQA5ADUANQAxAGEAYgAwAGQAMwA0ADMAMQA4AGYANwBjADAAZAA5ADQAOAAxAGIAOQA5AA==</DefaultPW>
     <AccountAdmin></AccountAdmin>
     <AccountUser></AccountUser>
-    <AccountService></AccountService>    
+    <AccountService></AccountService>
     <AdminPW></AdminPW>
     <UserPW></UserPW>
     <ServicePW></ServicePW>
@@ -45,17 +45,9 @@
   <ShareApplianceSettings>
     <DefaultShareLocalPath>D:\Share</DefaultShareLocalPath>
     <DefaultShareLocalName>Share</DefaultShareLocalName>
-    <DefaultShareFullAccessUsers>messervice, mesuser, mesadmin</DefaultShareFullAccessUsers>
+    <DefaultShareFullAccessUsers>messervice,mesuser,mesadmin</DefaultShareFullAccessUsers>
     <DefaultShareReadAccessUser>
     </DefaultShareReadAccessUser>
-    <ShareLocalPath>
-    </ShareLocalPath>
-    <ShareLocalName>
-    </ShareLocalName>
-    <ShareFullAccessUsers>
-    </ShareFullAccessUsers>
-    <ShareReadAccessUser>
-    </ShareReadAccessUser>
   </ShareApplianceSettings>
   <NetworkTeamSettings>
     <Team1Name>Team1</Team1Name>
