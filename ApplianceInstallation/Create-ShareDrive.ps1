@@ -13,6 +13,13 @@
       Requires:      
 #>
 
+# Get command line parameter auto to determine run method - Valid values (true or false). Default to false
+param([string]$ShareName,
+      [string]$ShareDirectory,    
+      [string[]]$FullAccessUsers,
+      [string[]]$ReadAccessUser
+
+) 
 
 # Import config file
 [xml]$ConfigFile = Get-Content ".\MES-Config.xml"
@@ -20,22 +27,43 @@
 
 
 
-if ($ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath) 
-{
-      # Set Share Settings from config file
-      $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath
-      $ShareName = $ConfigFile.Settings.ShareApplianceSettings.ShareLocalName
-      $FullAccessUsers = $ConfigFile.Settings.ShareApplianceSettings.ShareFullAccessUsers
-      $ReadAccessUser = $ConfigFile.Settings.ShareApplianceSettings.ShareReadAccessUsers
 
-}else {
-      # Set Share Settings to Default settings from config file
-      $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.ShareLocalPath
-      $ShareName = $ConfigFile.Settings.ShareApplianceSettings.ShareLocalName
-      $FullAccessUsers = $ConfigFile.Settings.ShareApplianceSettings.ShareFullAccessUsers
-      $ReadAccessUser = $ConfigFile.Settings.ShareApplianceSettings.ShareReadAccessUsers
-
+# Set Share Settings to Default settings from config file
+if([string]::IsNullOrEmpty($ShareDirectory)){  
+    $ShareDirectory =  $ConfigFile.Settings.ShareApplianceSettings.DefaultShareLocalPath
 }
+if([string]::IsNullOrEmpty($ShareName)){
+    $ShareName = $ConfigFile.Settings.ShareApplianceSettings.DefaultShareLocalName
+}
+if([string]::IsNullOrEmpty($FullAccessUsers)){
+    $FullAccessUsers = $ConfigFile.Settings.ShareApplianceSettings.DefaultShareFullAccessUsers -split ","
+}
+if([string]::IsNullOrEmpty($ReadAccessUsers)){
+    $ReadAccessUser = $ConfigFile.Settings.ShareApplianceSettings.DefaultShareReadAccessUsers -split ","
+}
+
+
+
+
+
+# If non default accounts defined add as full access users
+if ($ConfigFile.Settings.UserAccounts.AccountAdmin){
+    $adminAccount = $ConfigFile.Settings.UserAccounts.AccountAdmin
+    $FullAccessUsers = New-Object System.Collections.ArrayList
+    $FullAccessUsers.Add($adminAccount)
+}
+
+
+if ($ConfigFile.Settings.UserAccounts.AccountService){
+    $serviceAccount = $ConfigFile.Settings.UserAccounts.AccountService
+    $FullAccessUsers.Add($serviceAccount)
+}
+
+if ($ConfigFile.Settings.UserAccounts.AccountUser){
+    $userAccount = $ConfigFile.Settings.UserAccounts.AccountUser
+    $FullAccessUsers.Add($userAccount)
+}
+
 
 
 
@@ -47,7 +75,14 @@ if(Test-Path $ShareDirectory){
     }else {
         Write-Host "$ShareDirectory Share does not exist" -ForegroundColor Red
         Write-Host "Creating Share" -ForegroundColor Yellow
-        New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -ReadAccess $ReadAccessUser -Verbose
+        if ([string]::IsNullOrEmpty($ReadAccessUser)){
+            Write-Host "These user(s) will have full access: $FullAccessUsers" -ForegroundColor Yellow
+            New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -Verbose
+        } else {
+            Write-Host "These user(s) will have full access: $FullAccessUsers" -ForegroundColor Yellow
+            Write-Host "These user(s) will have read access: $ReadAccessUsers" -ForegroundColor Yellow
+            New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -ReadAccess $ReadAccessUser -Verbose
+        }
         if(Get-SMBShare -Name $ShareName -ea 0){
             Write-Host "$ShareDirectory Share created successfully" -ForegroundColor Green
         } else {
@@ -61,7 +96,14 @@ if(Test-Path $ShareDirectory){
     if(Test-Path $ShareDirectory){
         Write-Host "$ShareDirectory Directory created successfully" -ForegroundColor Green
         Write-Host "Creating Share" -ForegroundColor Yellow
-        New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -ReadAccess $ReadAccessUser -Verbose
+        if ([string]::IsNullOrEmpty($ReadAccessUser)){
+            Write-Host "These user(s) will have full access: $FullAccessUsers" -ForegroundColor Yellow
+            New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -Verbose
+        } else {
+            Write-Host "These user(s) will have full access: $FullAccessUsers" -ForegroundColor Yellow
+            Write-Host "These user(s) will have read access: $ReadAccessUsers" -ForegroundColor Yellow
+            New-SMBShare -Name $ShareName -Path $ShareDirectory -FullAccess $FullAccessUsers -ReadAccess $ReadAccessUser -Verbose
+        }
         if(Get-SMBShare -Name $ShareName -ea 0){
             Write-Host "$ShareDirectory Share created successfully" -ForegroundColor Green
         } else {
