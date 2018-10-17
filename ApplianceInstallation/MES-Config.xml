@@ -1,66 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Settings>
-    <UserAccounts>
-        <DefaultAdmin>mesadmin</DefaultAdmin>
-        <DefaultUser>mesuser</DefaultUser>
-        <DefaultService>messervice</DefaultService>
-        <AccountAdmin></AccountAdmin>
-        <AccountUser></AccountUser> 
-        <AccountService></AccountService> 
-        <AdminPW></AdminPW>
-        <UserPW></UserPW>
-        <ServicePW></ServicePW>   
-    </UserAccounts>
-    <ComputerNames>
-        <DefaultDiscoveryManagerBaseName>MESDM</DefaultDiscoveryManagerBaseName>
-        <DefaultDiscoveryAgentBaseName>MESDA</DefaultDiscoveryAgentBaseName>
-        <DefaultWebBaseName>MESWEB</DefaultWebBaseName>
-        <DefaultSQLBaseName>MESSQL</DefaultSQLBaseName>
-        <DefaultApplianceName>MESAPP001</DefaultApplianceName>
-        <DiscoveryManagerBaseName></DiscoveryManagerBaseName>
-        <DiscoveryAgentBaseName></DiscoveryAgentBaseName>
-        <WebBaseName></WebBaseName>
-        <SQLBaseName></SQLBaseName>
-        <ApplianceName></ApplianceName>   
-    </ComputerNames>
-    <RDPMembersSettings>
-        <DefaultRDPMembers>mesadmin</DefaultRDPMembers>
-        <RDPMembers></RDPMembers>
-    </RDPMembersSettings>
-    <ShareVMSettings>
-        <DefaultSharePath>\\MESAPP001\Share</DefaultSharePath>
-        <DefaultSharePathLetter>Z</DefaultSharePathLetter>
-        <SharePath></SharePath>
-        <SharePathLetter></SharePathLetter>
-    </ShareVMSettings>
-    <ShareApplianceSettings>
-        <DefaultShareLocalPath>D:\Share</DefaultShareLocalPath>
-        <DefaultShareLocalName>Share</DefaultShareLocalName>
-        <DefaultShareFullAccessUsers>messervice, mesuser, mesadmin</DefaultShareFullAccessUsers>
-        <DefaultShareReadAccessUser></DefaultShareReadAccessUser>
-        <ShareLocalPath></ShareLocalPath>
-        <ShareLocalName></ShareLocalName>
-        <ShareFullAccessUsers></ShareFullAccessUsers>
-        <ShareReadAccessUser></ShareReadAccessUser>    
-    </ShareApplianceSettings>
-    <NetworkTeamSettings>
-        <Team1Name>Team1</Team1Name>
-        <Team2Name>Team2</Team2Name>
-        <Member1Name>Ethernet</Member1Name>
-        <Member2Name>Ethernet 2</Member2Name>
-        <Member3Name>Ethernet 3</Member3Name>
-        <Member4Name>Ethernet 4</Member4Name>
-        <Team1Config>Ethernet, Ethernet 2</Team1Config>
-        <Team2Config>Ethernet 3, Ethernet 4</Team2Config>
-        <Team1Mode>SwitchIndependent</Team1Mode>
-        <Team2Mode>SwitchIndependent</Team2Mode>
-    </NetworkTeamSettings>
-    <HyperVSwitch>
-        <NetAdapter>Team1</NetAdapter>
-        <VMSwitchName>MESVirtualSwitch</VMSwitchName>
-    </HyperVSwitch>
-    <CopyDeploy>
-        <DestFolder>C:\Deploy</DestFolder>
-        <SourceFolder>D:\Deploy</SourceFolder>
-    </CopyDeploy>
+  <UserAccounts>
+    <DefaultAdmin>mesadmin</DefaultAdmin>
+    <DefaultUser>mesuser</DefaultUser>
+    <DefaultService>messervice</DefaultService>
+    <AccountAdmin></AccountAdmin>
+    <AccountUser></AccountUser>
+    <AccountService></AccountService>
+    <AdminPW>76492d1116743f0423413b16050a5345MgB8AHEASwBQAGUAbQB6AHcAQQB1AHcAcABSADQAKwBmAFIATQBkAFUARgBlAHcAPQA9AHwANwBkAGEAZAA0ADgAOQA5ADUANQAxAGEAYgAwAGQAMwA0ADMAMQA4AGYANwBjADAAZAA5ADQAOAAxAGIAOQA5AA==</AdminPW>
+    <UserPW>76492d1116743f0423413b16050a5345MgB8AEsASgBSAHkAMABwAEQAMgBWAGEAeABDAHAAVQBpAGQAaAAvAEgANQBtAFEAPQA9AHwANABiADMAYwBjAGIAZQBkADMAYQA0AGEAOQBjAGYAOQA1ADEANwBmADUAMwA0ADAAMQA2AGUAYQBkADkAMwA4AA==</UserPW>
+    <ServicePW>76492d1116743f0423413b16050a5345MgB8ADQAdwBLAGwAbgB1AEsAQgBaAE4AZgBoAHAAMwBqAEsANAArAFEANwBLAHcAPQA9AHwANAA4AGEAOAAyAGMANwA5ADcAMAAwADMAOQBjADgAMgAxADUANQBhADQAMgA3AGEANAA4ADMAYwA3ADUAMwBlAA==</ServicePW>
+  </UserAccounts>
+  <ComputerNames>
+    <DefaultDiscoveryManagerBaseName>MESDM</DefaultDiscoveryManagerBaseName>
+    <DefaultDiscoveryAgentBaseName>MESDA</DefaultDiscoveryAgentBaseName>
+    <DefaultWebBaseName>MESWEB</DefaultWebBaseName>
+    <DefaultSQLBaseName>MESSQL</DefaultSQLBaseName>
+    <DefaultApplianceName>MESAPP001</DefaultApplianceName>
+    <DiscoveryManagerBaseName>
+    </DiscoveryManagerBaseName>
+    <DiscoveryAgentBaseName>
+    </DiscoveryAgentBaseName>
+    <WebBaseName>
+    </WebBaseName>
+    <SQLBaseName>
+    </SQLBaseName>
+    <ApplianceName>
+    </ApplianceName>
+  </ComputerNames>
+  <RDPMembersSettings>
+    <DefaultRDPMembers>mesadmin</DefaultRDPMembers>
+    <RDPMembers>
+    </RDPMembers>
+  </RDPMembersSettings>
+  <ShareVMSettings>
+    <DefaultSharePath>\\MESAPP001\Share</DefaultSharePath>
+    <DefaultSharePathLetter>Z</DefaultSharePathLetter>
+    <SharePath>
+    </SharePath>
+    <SharePathLetter>
+    </SharePathLetter>
+  </ShareVMSettings>
+  <ShareApplianceSettings>
+    <DefaultShareLocalPath>D:\Share</DefaultShareLocalPath>
+    <DefaultShareLocalName>Share</DefaultShareLocalName>
+    <DefaultShareFullAccessUsers>messervice, mesuser, mesadmin</DefaultShareFullAccessUsers>
+    <DefaultShareReadAccessUser>
+    </DefaultShareReadAccessUser>
+    <ShareLocalPath>
+    </ShareLocalPath>
+    <ShareLocalName>
+    </ShareLocalName>
+    <ShareFullAccessUsers>
+    </ShareFullAccessUsers>
+    <ShareReadAccessUser>
+    </ShareReadAccessUser>
+  </ShareApplianceSettings>
+  <NetworkTeamSettings>
+    <Team1Name>Team1</Team1Name>
+    <Team2Name>Team2</Team2Name>
+    <Member1Name>Ethernet</Member1Name>
+    <Member2Name>Ethernet 2</Member2Name>
+    <Member3Name>Ethernet 3</Member3Name>
+    <Member4Name>Ethernet 4</Member4Name>
+    <Team1Config>Ethernet, Ethernet 2</Team1Config>
+    <Team2Config>Ethernet 3, Ethernet 4</Team2Config>
+    <Team1Mode>SwitchIndependent</Team1Mode>
+    <Team2Mode>SwitchIndependent</Team2Mode>
+  </NetworkTeamSettings>
+  <HyperVSwitch>
+    <NetAdapter>Team1</NetAdapter>
+    <VMSwitchName>MESVirtualSwitch</VMSwitchName>
+  </HyperVSwitch>
+  <CopyDeploy>
+    <DestFolder>C:\Deploy</DestFolder>
+    <SourceFolder>D:\Deploy</SourceFolder>
+  </CopyDeploy>
 </Settings>
