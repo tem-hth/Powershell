@@ -13,6 +13,11 @@
       Requires:      
 #>
 
+# Get command line parameter auto to determine run method - Valid values (true or false). Default to false
+param([string]$auto="false") 
+
+
+
 
 # Change to secure later
 [Byte[]] $key = (1..16)
@@ -21,56 +26,76 @@
 $configFilePath = ".\MES-Config.xml"
 [xml]$ConfigFile = Get-Content $configFilePath
 
+# Initialize Config Account Variables
 $adminAccount
 $serviceAccount
 $userAccount
+$adminAccountPW
+$serviceAccountPW
+$userAccountPW
+$saveXMLConfig = "n"
 
 # Read Account Settings from XML
 if ($ConfigFile.Settings.UserAccounts.AccountAdmin){
     $adminAccount = $ConfigFile.Settings.UserAccounts.AccountAdmin
+    $adminAccountPW = $ConfigFile.Settings.UserAccounts.AdminPW | ConvertTo-SecureString -Key $key
 }
 else {
     $adminAccount = $ConfigFile.Settings.UserAccounts.DefaultAdmin
+    $adminAccountPW = $ConfigFile.Settings.UserAccounts.DefaultPW | ConvertTo-SecureString -Key $key
 }
 
 if ($ConfigFile.Settings.UserAccounts.AccountService){
     $serviceAccount = $ConfigFile.Settings.UserAccounts.AccountService
+    $serviceAccountPW = $ConfigFile.Settings.UserAccounts.ServicePW | ConvertTo-SecureString -Key $key
 }
 else {
     $serviceAccount = $ConfigFile.Settings.UserAccounts.DefaultService
+    $serviceAccountPW = $ConfigFile.Settings.UserAccounts.DefaultPW | ConvertTo-SecureString -Key $key
 }
 
 if ($ConfigFile.Settings.UserAccounts.AccountUser){
     $userAccount = $ConfigFile.Settings.UserAccounts.AccountUser
+    $userAccountPW = $ConfigFile.Settings.UserAccounts.UserPW | ConvertTo-SecureString -Key $key
 }
 else {
     $userAccount = $ConfigFile.Settings.UserAccounts.DefaultUser
+    $userAccountPW = $ConfigFile.Settings.UserAccounts.DefaultPW | ConvertTo-SecureString -Key $key
 }
 
 
 
 
-
-Write-Host "#### Creating three MES User Accounts #####" -ForegroundColor Yellow
-$selectedAdminAccount = Read-Host "Please enter the name of the admin user(default is $adminAccount)"
-$selectedAdminAccountPW = Read-Host "Please enter the password for the admin user" -AsSecureString
-$selectedServiceAccount  = Read-Host "Please enter the name of the service account(default is $serviceAccount)"
-$selectedServiceAccountPW = Read-Host "Please enter the password for the service account" -AsSecureString
-$selectedUserAccount = Read-Host "Please enter the name of the standard user(default is $userAccount)"
-$selectedUserAccountPW = Read-Host "Please enter the password for the standard user" -AsSecureString
-Write-Host "You should save user config if you will like to use the credentials for VM Creation." -ForegroundColor Yellow
-$saveXMLConfig = Read-Host "Do you want to save user config?(y/n)"
-
+if ($auto -eq "false") {
+    Write-Host "#### Creating three MES Accounts in Manual Mode #####" -ForegroundColor Yellow
+    $selectedAdminAccount = Read-Host "Please enter the name of the admin user(default is $adminAccount)"
+    $selectedAdminAccountPW = Read-Host "Please enter the password for the admin user" -AsSecureString
+    $selectedServiceAccount  = Read-Host "Please enter the name of the service account(default is $serviceAccount)"
+    $selectedServiceAccountPW = Read-Host "Please enter the password for the service account" -AsSecureString
+    $selectedUserAccount = Read-Host "Please enter the name of the standard user(default is $userAccount)"
+    $selectedUserAccountPW = Read-Host "Please enter the password for the standard user" -AsSecureString
+    Write-Host "You should save user config if you will like to use the credentials for VM Creation." -ForegroundColor Yellow
+    $saveXMLConfig = Read-Host "Do you want to save user config?(y/n)"
+}
+elseif ($auto -eq "true") {
+    Write-Host "#### Creating three MES Accounts in Auto Mode #####" -ForegroundColor Yellow
+} else {
+    Write-Host "Invalid Mode: Options true or false" -ForegroundColor Red
+    Exit
+}
 
 
 if (([string]::IsNullOrEmpty($selectedAdminAccount))) {
     $selectedAdminAccount = $adminAccount
+    $selectedAdminAccountPW = $adminAccountPW
 }
 if (([string]::IsNullOrEmpty($selectedServiceAccount))) {
     $selectedServiceAccount = $serviceAccount
+    $selectedServiceAccountPW = $serviceAccountPW
 }
 if (([string]::IsNullOrEmpty($selectedUserAccount))) {
     $selectedUserAccount = $userAccount
+    $selectedUserAccountPW = $userAccountPW
 }
 
 if ($saveXMLConfig -eq "y" -or "Y") {
@@ -87,7 +112,7 @@ if ($saveXMLConfig -eq "y" -or "Y") {
 }
 
 
-
+#Add Admin Account
 if ((Get-LocalUser -Name $selectedAdminAccount).Count -eq 1) {
     Write-Host "$selectedAdminAccount Account Already Exist" -Foreground Green
 }
@@ -103,6 +128,7 @@ else{
 
 }
 
+#Add Service Account
 if ((Get-LocalUser -Name $selectedServiceAccount).Count -eq 1) {
     Write-Host  "$selectedServiceAccount Account Already Exist" -Foreground Green
 }
@@ -118,7 +144,7 @@ else{
 
 }
 
-
+#Add User Account
 if ((Get-LocalUser -Name $selectedUserAccount).Count -eq 1) {
     Write-Host  "$selectedUserAccount Account Already Exist" -Foreground Green
 }
@@ -133,3 +159,4 @@ else{
     }
 
 }
+
