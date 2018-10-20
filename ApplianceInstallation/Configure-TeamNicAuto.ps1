@@ -22,32 +22,72 @@ $Team1Name = $ConfigFile.Settings.NetworkTeamSettings.Team1Name
 $Team2Name = $ConfigFile.Settings.NetworkTeamSettings.Team2Name
 
 $SelectedMembers = New-Object System.Collections.Generic.List[System.Object]
+$SelectedMembers10GB = New-Object System.Collections.Generic.List[System.Object]
+$SelectedMembers1GB = New-Object System.Collections.Generic.List[System.Object]
 #Use Get-Netadapter to get network port names
 $NicMembers = Get-NetAdapter | Sort-Object -Property Name 
 
+#CHeck for 10GB QLogic BCM57800
+$10GBNic = $false
 
+Foreach ($NicMember in $NicMembers) {
+    if($NicMember.InterfaceDescription -contains "QLogic BCM57800 10 Gigabit Ethernet" ) {
+        $10GBNic = $true
+    }
+}
 
 Foreach ($NicMember in $NicMembers)
 {
     if ($NicMember.InterfaceDescription -ne "Hyper-V Virtual Ethernet Adapter" -and $NicMember.InterfaceDescription -notmatch "Microsoft Network Adapter Multiplexor*"){
-    
+        if($10GBNic){
+            if($NicMember.InterfaceDescription -contains "QLogic BCM57800 10 Gigabit Ethernet" ) {
+                $SelectedMembers10GB.Add($NicMember)
+            }elseif ($NicMember.InterfaceDescription -contains "QLogic BCM57800 Gigabit Ethernet"){
+                $SelectedMembers1GB.Add($NicMember)
+            }
+        }else{
         #Write-Host $NicMember.Name $NicMember.InterfaceDescription
-        $SelectedMembers.Add($NicMember)
+            $SelectedMembers.Add($NicMember)
+        }
+
     }
 }
 
-Foreach ($Member in $SelectedMembers) {
+if($10GBNic){
+    Foreach ($Member10GB in $SelectedMembers10GB) {
 
-    Write-Host "Selected: " $Member.Name
+        Write-Host "Selected: " $Member10GB.Name
 
+    }
+    Foreach ($Member1GB in $SelectedMembers1GB) {
+
+        Write-Host "Selected: " $Member1GB.Name
+
+    }
+
+}else {
+    Foreach ($Member in $SelectedMembers) {
+
+        Write-Host "Selected: " $Member.Name
+
+    }
 }
 
 
 #Use Get-Netadapter to get network port names
-$Member1Name = $SelectedMembers[0].Name
-$Member2Name = $SelectedMembers[1].Name
-$Member3Name = $SelectedMembers[2].Name
-$Member4Name = $SelectedMembers[3].Name
+if ($10GBNic){
+    $Member1Name = $SelectedMembers1GB[0].Name
+    $Member2Name = $SelectedMembers1GB[1].Name
+    $Member3Name = $SelectedMembers10GB[2].Name
+    $Member4Name = $SelectedMembers10GB[3].Name
+    $Team1Name = "1GBTEAM"
+    $Team2Name = "10GBTEAM"
+} else {
+    $Member1Name = $SelectedMembers[0].Name
+    $Member2Name = $SelectedMembers[1].Name
+    $Member3Name = $SelectedMembers[2].Name
+    $Member4Name = $SelectedMembers[3].Name
+}
 
 $Team1Config = $Member1Name,$Member2Name
 $Team2Config = $Member3Name,$Member4Name
