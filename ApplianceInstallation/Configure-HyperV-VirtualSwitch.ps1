@@ -12,16 +12,23 @@
       Requirements:	The installers executed via this script typically needs "Run As Administrator"
       Requires:      
 #>
+# Get command line parameter auto to determine run method - Valid values (true or false). Default to false
+param([string]$NetAdapater,
+      [string]$VMSwitchName
+
+) 
+
 
 # Import config file
 [xml]$ConfigFile = Get-Content ".\MES-Config.xml"
 
-
-#Select Team or Ethernet Adapter to use
-$NetAdapater = $ConfigFile.Settings.NetAdapter
-#Select Hyper V Virtual Switch Name
-$VMSwitchName = $ConfigFile.Settings.VMSwitchName
-
+# if paramaters are empty read from config file.
+if([string]::IsNullOrEmpty($NetAdapater) -and [string]::IsNullOrEmpty($VMSwitchName)){
+    #Select Team or Ethernet Adapter to use
+    $NetAdapater = $ConfigFile.Settings.NetAdapter
+    #Select Hyper V Virtual Switch Name
+    $VMSwitchName = $ConfigFile.Settings.VMSwitchName
+}
 if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
     Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
 }else {
