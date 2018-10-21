@@ -12,6 +12,12 @@
       Requirements:	The installers executed via this script typically needs "Run As Administrator"
       Requires:      
 #>
+function Get-RandomMacAddress{
+ 
+    $MacAddress = (0..5 | ForEach-Object { '{0:x}{1:x}' -f (Get-Random -Minimum 0 -Maximum 15),(Get-Random -Minimum 0 -Maximum 15)})  -join ':'    
+    return $MacAddress
+ 
+}
 
 
 # Import config file
@@ -134,12 +140,7 @@ else {
     }
 }
 	
-function Get-RandomMacAddress{
- 
-    $MacAddress = (0..5 | ForEach-Object { '{0:x}{1:x}' -f (Get-Random -Minimum 0 -Maximum 15),(Get-Random -Minimum 0 -Maximum 15)})  -join ':'    
-    return $MacAddress
- 
-}
+
 
 
 
