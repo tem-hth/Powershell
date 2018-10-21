@@ -36,7 +36,7 @@ if(![string]::IsNullOrEmpty($ConfigFile.Settings.NetworkTeamSettings.ConfiguredT
     Write-Host "Using teams from configuration to create Virtual Switch" -ForegroundColor Yellow
     Write-Host "The following teams have been identified: $configTeams" -ForegroundColor Yellow
 
-    foreach $team in $configTeams {
+    foreach ($team in $configTeams) {
         if ($team -eq "Team 1") {
             $VMSwitchName = "vSwitch1"
         }elseif ($team -eq "Team2") {
@@ -65,18 +65,19 @@ if(![string]::IsNullOrEmpty($ConfigFile.Settings.NetworkTeamSettings.ConfiguredT
     }
 
 
-}
-
-if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
-    Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
 }else {
-    Write-Host "$VMSwitchName is not configured as Hyper V Virtual Switch" -ForegroundColor Red
-    Write-Host "Configuring $VMSwitchName as a Hyper V Virtual Switch" -ForegroundColor Yellow
-    New-VMSwitch -Name $VMSwitchName -AllowManagementOS $True -NetAdapterName $NetAdapater
-    if((Get-VMSwitch -Name $VMSwitchName).Count -eq 1) {
-        Write-Host "$VMSwitchName is configured as Hyper V Virtual Switch" -ForegroundColor Green
+
+    if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
+        Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
     }else {
-        Write-Host "Unable to configure Hyper V Virtual Switch"  -ForegroundColor Red
+        Write-Host "$VMSwitchName is not configured as Hyper V Virtual Switch" -ForegroundColor Red
+        Write-Host "Configuring $VMSwitchName as a Hyper V Virtual Switch" -ForegroundColor Yellow
+        New-VMSwitch -Name $VMSwitchName -AllowManagementOS $True -NetAdapterName $NetAdapater
+        if((Get-VMSwitch -Name $VMSwitchName).Count -eq 1) {
+            Write-Host "$VMSwitchName is configured as Hyper V Virtual Switch" -ForegroundColor Green
+        }else {
+            Write-Host "Unable to configure Hyper V Virtual Switch"  -ForegroundColor Red
+        }
     }
 }
 
