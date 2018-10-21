@@ -62,7 +62,7 @@ if ((Test-Path -Path $IE_ES_User_Key)) {
         Set-ItemProperty -Path $IE_ES_User_Key -Name "IsInstalled" -Value 0 -Force
         Get-ItemProperty -Path $IE_ES_User_Key | Select-Object PSPath, IsInstalled, PSDrive | Format-List
         Write-Host "`nIE Enhanced Security is Disabled for User" -ForegroundColor Green
-    }
+    
     } else {
     Write-Host "`nIE Enahanced Security Registry Keys in (Admin and User) - Is Not Configured"
     Write-host "`n $IE_ES_Admin_Key `n $IE_ES_User_Key " -ForegroundColor Black -BackgroundColor Cyan
