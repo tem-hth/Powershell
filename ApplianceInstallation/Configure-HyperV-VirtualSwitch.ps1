@@ -25,10 +25,48 @@ param([string]$NetAdapater,
 # if paramaters are empty read from config file.
 if([string]::IsNullOrEmpty($NetAdapater) -and [string]::IsNullOrEmpty($VMSwitchName)){
     #Select Team or Ethernet Adapter to use
-    $NetAdapater = $ConfigFile.Settings.NetAdapter
+    $NetAdapater = $ConfigFile.Settings.HyperVSwitch.NetAdapter
     #Select Hyper V Virtual Switch Name
-    $VMSwitchName = $ConfigFile.Settings.VMSwitchName
+    $VMSwitchName = $ConfigFile.Settings.HyperVSwitch.VMSwitchName
 }
+
+$configTeams = New-Object System.Collections.Generic.List[System.Object]
+if(![string]::IsNullOrEmpty($ConfigFile.Settings.NetworkTeamSettings.ConfiguredTeams) ){
+    $configTeams = $ConfigFile.Settings.NetworkTeamSettings.ConfiguredTeams -split ","
+    Write-Host "Using teams from configuration to create Virtual Switch" -ForegroundColor Yellow
+    Write-Host "The following teams have been identified: $configTeams" -ForegroundColor Yellow
+
+    foreach $team in $configTeams {
+        if ($team -eq "Team 1") {
+            $VMSwitchName = "vSwitch1"
+        }elseif ($team -eq "Team2") {
+            $VMSwitchName = "vSwitch2" 
+        }elseif ($team -eq "10GBTEAM") {
+            $VMSwitchName = "vSwitch10GB"
+        }elseif ($team -eq "1GBTEAM") {
+            $VMSwitchName = "vSwitch1GB"
+        } 
+
+        if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
+            Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
+        }else {
+            Write-Host "$VMSwitchName is not configured as Hyper V Virtual Switch" -ForegroundColor Red
+            Write-Host "Configuring $VMSwitchName as a Hyper V Virtual Switch" -ForegroundColor Yellow
+            New-VMSwitch -Name $VMSwitchName -AllowManagementOS $True -NetAdapterName $team
+            if((Get-VMSwitch -Name $VMSwitchName).Count -eq 1) {
+                Write-Host "$VMSwitchName is configured as Hyper V Virtual Switch" -ForegroundColor Green
+            }else {
+                Write-Host "Unable to configure Hyper V Virtual Switch"  -ForegroundColor Red
+            }
+        }
+
+
+
+    }
+
+
+}
+
 if ((Get-VMSwitch -Name $VMSwitchName).Count -eq 1 ) {
     Write-Host "$VMSwitchName is already configured as Hyper V Virtual Switch"
 }else {
