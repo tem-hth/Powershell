@@ -13,29 +13,36 @@
       Requires:      
 #>
 
-
+# Get command line parameter auto to determine run method - Valid values (true or false). Default to false
+param([string]$RDPMembers 
+) 
 
 	
 # Import config file
 [xml]$ConfigFile = Get-Content ".\MES-Config.xml"
 
 
+if([string]::IsNullOrEmpty($RDPMembers)) {
 
-
-if ($ConfigFile.Settings.RDPMembersSettings.RDPMembers) 
-{
-      # Set RDP Members from config file
-      $RDPMembers = $ConfigFile.Settings.RDPMembersSettings.RDPMembers
-}else {
-      # Set RDP Members to Default settings from config file
-      $RDPMembers =  $ConfigFile.Settings.RDPMembersSettings.DefaultRDPMembers
+    if ($ConfigFile.Settings.UserAccounts.AccountAdmin) 
+    {
+          # Set RDP Members from config file
+          $RDPMembers = $ConfigFile.Settings.UserAccounts.AccountAdmin
+    }else {
+          # Set RDP Members to Default settings from config file
+          $RDPMembers =  $ConfigFile.Settings.UserAccounts.DefaultAdmin
+    }
 }
 
-
-New-ItemProperty -Path 'HKLM:SystemCurrentControlSetControlTerminal Server' -Name 'fDenyTSConnections' -Value 0 -PropertyType dword -Force
-New-ItemProperty -Path 'HKLM:SystemCurrentControlSetControlTerminal ServerWinStationsRDP-Tcp' -Name 'UserAuthentication' -Value 1 -PropertyType dword -Force
+Write-Host "#### Enabling Remote Desktop #####" -ForegroundColor Yellow
+New-ItemProperty -Path "HKLM:System\CurrentControlSet\Control\Terminal Server" -Name 'fDenyTSConnections' -Value 0 -PropertyType dword -Force
+New-ItemProperty -Path "HKLM:System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name 'UserAuthentication' -Value 1 -PropertyType dword -Force
+Write-Host "Enabled Remote Desktop" -ForegroundColor Green
 Enable-NetFirewallRule -DisplayGroup 'Remote Desktop'
+Write-Host "Enabled Remote Desktop Firewall Rules" -ForegroundColor Green
 Add-LocalGroupMember -Group "Remote Desktop Users" -Member $RDPMembers
+Write-Host "$RDPMembers have been given remote desktop access" -ForegroundColor Green
+
 # SIG # Begin signature block
 # MIIOCgYJKoZIhvcNAQcCoIIN+zCCDfcCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
