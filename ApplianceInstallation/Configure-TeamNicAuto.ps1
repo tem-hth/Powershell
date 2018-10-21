@@ -21,7 +21,8 @@ function Get-RandomMacAddress{
 
 
 # Import config file
-[xml]$ConfigFile = Get-Content ".\MES-Config.xml"
+$configFilePath = ".\MES-Config.xml"
+[xml]$ConfigFile = Get-Content $configFilePath
 
 
 $Team1Name = $ConfigFile.Settings.NetworkTeamSettings.Team1Name
@@ -125,7 +126,9 @@ else {
         New-NetLbfoTeam -Name $Team2Name -TeamMembers $Team2Config -TeamingMode $Team2Mode -Confirm:$false 
         Set-NetAdapter -Name $Team1Name -MacAddress $Team1MacAddress -Confirm:$false 
         Set-NetAdapter -Name $Team2Name -MacAddress $Team2MacAddress -Confirm:$false 
-
+        Write-Host "Saving Team Configurations" -ForegroundColor Green
+        $ConfigFile.Settings.NetworkTeamSettings.ConfiguredTeams = "$Team1Name,$Team2Name"
+        $ConfigFile.Save($configFilePath)
         #Check State of Teaming
         if((Get-NetLbfoTeam).TeamNics.Count -eq $NumofTeams) {
             Write-Host "Two Teams are Configured" -ForegroundColor Green

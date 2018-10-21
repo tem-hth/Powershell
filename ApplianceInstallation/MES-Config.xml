@@ -60,10 +60,12 @@
     <Team2Config>Ethernet 3, Ethernet 4</Team2Config>
     <Team1Mode>SwitchIndependent</Team1Mode>
     <Team2Mode>SwitchIndependent</Team2Mode>
+    <ConfiguredTeams></ConfiguredTeams>
   </NetworkTeamSettings>
   <HyperVSwitch>
     <NetAdapter>Team1</NetAdapter>
-    <VMSwitchName>MESVirtualSwitch</VMSwitchName>
+    <VMSwitchName>vSwitch1</VMSwitchName>
+    <ConfiguredvSwitch></ConfiguredvSwitch>
   </HyperVSwitch>
   <CopyDeploy>
     <DestFolder>C:\Deploy</DestFolder>
