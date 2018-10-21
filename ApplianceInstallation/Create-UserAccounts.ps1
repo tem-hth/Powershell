@@ -113,10 +113,16 @@ if ($saveXMLConfig -eq "y" -or "Y") {
 
 
 #Add Admin Account
-if ((Get-LocalUser -Name $selectedAdminAccount).Count -eq 1) {
+
+try{
+ $getUser = Get-LocalUser -Name $selectedAdminAccount -ErrorAction Stop
+ $userExist = $getUser.Count -eq 1
+ if($userExist) {
     Write-Host "$selectedAdminAccount Account Already Exist" -Foreground Green
+ }
 }
-else{
+catch{
+    Write-Host "User $selectedAdminAccount does not exist" -ForegroundColor Red
     Write-Host "Creating $selectedAdminAccount  Account" -ForegroundColor Yellow
     New-LocalUser $selectedAdminAccount -Password $selectedAdminAccountPW -FullName $selectedAdminAccount 
     Add-LocalGroupMember -Group "Administrators" -Member $selectedAdminAccount
@@ -129,10 +135,15 @@ else{
 }
 
 #Add Service Account
-if ((Get-LocalUser -Name $selectedServiceAccount).Count -eq 1) {
-    Write-Host  "$selectedServiceAccount Account Already Exist" -Foreground Green
+try{
+    $getUser = Get-LocalUser -Name $selectedServiceAccount -ErrorAction Stop
+    $userExist = $getUser.Count -eq 1 
+    if($userExist) {
+        Write-Host  "$selectedServiceAccount Account Already Exist" -Foreground Green
+    }
 }
-else{
+catch{
+    Write-Host "User $selectedServiceAccount does not exist" -ForegroundColor Red
     Write-Host "Creating $selectedServiceAccount  Account" -ForegroundColor Yellow
     New-LocalUser $selectedServiceAccount -Password $selectedServiceAccountPW -FullName $selectedServiceAccount 
     Add-LocalGroupMember -Group "Administrators" -Member $selectedServiceAccount
@@ -145,10 +156,15 @@ else{
 }
 
 #Add User Account
-if ((Get-LocalUser -Name $selectedUserAccount).Count -eq 1) {
-    Write-Host  "$selectedUserAccount Account Already Exist" -Foreground Green
+try{
+    $getUser = Get-LocalUser -Name $selectedUserAccount -ErrorAction Stop
+    $userExist = $getUser.Count -eq 1
+    if($userExist) {
+        Write-Host  "$selectedUserAccount Account Already Exist" -Foreground Green
+    }
 }
-else{
+catch{
+    Write-Host "User $selectedUserAccount does not exist" -ForegroundColor Red
     Write-Host "Creating $selectedUserAccount  Account" -ForegroundColor Yellow
     New-LocalUser $selectedUserAccount -Password $selectedUserAccountPW -FullName $selectedUserAccount 
     Add-LocalGroupMember -Group "Administrators" -Member $selectedUserAccount
