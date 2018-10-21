@@ -64,7 +64,8 @@
   </NetworkTeamSettings>
   <HyperVSwitch>
     <NetAdapter>Team1</NetAdapter>
-    <VMSwitchName>MESVirtualSwitch</VMSwitchName>
+    <VMSwitchName>vSwitch1</VMSwitchName>
+    <ConfiguredvSwitch></ConfiguredvSwitch>
   </HyperVSwitch>
   <CopyDeploy>
     <DestFolder>C:\Deploy</DestFolder>
